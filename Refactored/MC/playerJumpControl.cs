@@ -5,18 +5,18 @@ using UnityEngine;
 
 public class playerJumpControl : MonoBehaviour
 {
-    [SerializeField] private Rigidbody2D body;
-    [SerializeField] private playerSpriteController spriteController;
-
-    [SerializeField] private float jumpForce;
-    [SerializeField] private float jumpHoldTimer;
+    private Rigidbody2D body;
+    private playerSpriteController spriteController;
+    private float jumpForce;
+    private float jumpHoldTimer;
     private float jumpTimerCounter;
     private bool canExtendJump;
-    
-    private void Awake()
-    {
-        body = GetComponent<Rigidbody2D>();
-        spriteController.setSprite(body)
+
+    private void initialize(Rigidbody2D spriteBody, float force, float jumpTimer) {
+        body = spriteBody;
+        spriteController.setSprite(body);
+        this.jumpForce = force;
+        this.jumpHoldTimer = jumpTimer;
     }
 
     private void extendJump() {
@@ -43,14 +43,17 @@ public class playerJumpControl : MonoBehaviour
         }
     }
 
-    public void jump()
+    public void jumpInputProcess()
     {
-        canExtendJump = true;
-        spriteController.animateJump()
-        jumpTimerCounter = jumpHoldTimer;
-        
-        body.velocity = new Vector2(body.velocity.x, jumpForce);
+        if (isGrounded == true && Input.GetKeyDown(KeyCode.Space))
+        {
+            canExtendJump = true;
+            spriteController.animateJump()
+            jumpTimerCounter = jumpHoldTimer;
 
-        jumpAndExtend();
+            body.velocity = new Vector2(body.velocity.x, jumpForce);
+
+            jumpAndExtend();
+        }
     }
 }

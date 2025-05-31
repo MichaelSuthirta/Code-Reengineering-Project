@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEditor.Rendering;
 using UnityEngine;
 
-public class playerMovement : MonoBehaviour
+public class BoundaryControl : MonoBehaviour
 {
     [SerializeField] private Rigidbody2D body;
     [SerializeField] private playerSpriteController spriteController;
@@ -11,38 +11,11 @@ public class playerMovement : MonoBehaviour
     private float movementInput;
 
     [SerializeField] private groundChecker groundChecker;
-    [SerializeField] private playerJumpControl jumpControl;
-
-    [SerializeField] private playerFightControl fightControl;
 
     private void Awake()
     {
         body = GetComponent<Rigidbody2D>();
         spriteController.setSprite(body);
-    }
-
-    private void runAnimate()
-    {    
-        if (!fightControl.skillPerformed)
-        {
-            movementInput = Input.GetAxisRaw("Horizontal");
-            spriteController.animateRun(movementInput);
-        }
-    }
-
-    private void runMove() {
-        if (!fightControl.skillPerformed)
-        {
-            body.velocity = new Vector2(movementInput * speed, body.velocity.y);
-        }  
-    }
-
-    private void jumpMove(isGrounded)
-    {
-        if (isGrounded == true && Input.GetKeyDown(KeyCode.Space))
-        {
-            jumpControl.jump();
-        }
     }
 
     private void clampPosition() {
@@ -56,17 +29,12 @@ public class playerMovement : MonoBehaviour
 
     private void Update()
     {
-        runAnimate();
-
         isGrounded = groundChecker.isOnGround();
         spriteController.animateWhenFalling(isGrounded);
-
-        jumpMove(isGrounded);
     }
 
     private void FixedUpdate()
     {
-        runMove();
         clampPosition();
     }
 }

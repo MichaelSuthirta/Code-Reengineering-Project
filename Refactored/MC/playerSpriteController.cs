@@ -10,7 +10,7 @@ public class playerSpriteController : MonoBehaviour
     private bool isfacingRight = true;
     private float movementInput;
 
-    public void setSprite(RigidBody2D spriteBody)
+    public static void setSprite(RigidBody2D spriteBody)
     {
         body = spriteBody;
     }
@@ -20,7 +20,7 @@ public class playerSpriteController : MonoBehaviour
         animator = GetComponent<Animator>();
     }
 
-    public void animateRun(float movementInput)
+    public static void animateRun(float movementInput)
     {
         if (movementInput == 0)
         {
@@ -33,7 +33,7 @@ public class playerSpriteController : MonoBehaviour
         }
     }
 
-    public void animateWhenFalling(bool isGrounded)
+    public static void animateWhenFalling(bool isGrounded)
     {
         if (isGrounded)
         {
@@ -45,17 +45,17 @@ public class playerSpriteController : MonoBehaviour
         }
     }
 
-    public void animateJump()
+    public static void animateJump()
     {
         animator.SetTrigger("jumpStart");
     }
 
-    private void faceRightFlip()
+    private static void faceRightFlip()
     {
         isfacingRight = !isfacingRight;
     }
 
-    private void correctSpriteDirection()
+    private static void correctSpriteDirection()
     {
         if ((movementInput < 0 && isfacingRight) || (movementInput > 0 && !isfacingRight))
         {
