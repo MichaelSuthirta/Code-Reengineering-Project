@@ -7,13 +7,13 @@ public class playerMovement : MonoBehaviour
 {
     [SerializeField] private Rigidbody2D body;
     [SerializeField] private playerSpriteController spriteController;
-    public float speed;
+    [SerializeField] private float speed;
     private float movementInput;
 
     [SerializeField] private groundChecker groundChecker;
     [SerializeField] private playerJumpControl jumpControl;
 
-    public playerFightControl fightControl;
+    [SerializeField] private playerFightControl fightControl;
 
     private void Awake()
     {
