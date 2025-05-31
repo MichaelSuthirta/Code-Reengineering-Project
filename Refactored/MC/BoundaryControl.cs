@@ -7,9 +7,6 @@ public class BoundaryControl : MonoBehaviour
 {
     [SerializeField] private Rigidbody2D body;
     [SerializeField] private playerSpriteController spriteController;
-    [SerializeField] private float speed;
-    private float movementInput;
-
     [SerializeField] private groundChecker groundChecker;
 
     private void Awake()
