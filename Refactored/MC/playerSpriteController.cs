@@ -5,13 +5,8 @@ using UnityEngine;
 
 public class playerSpriteController : MonoBehaviour
 {
-
-    //Take rigid body 2d component from player object
-    //Serialize field: The variable is still private, but accessible through editor
     private Rigidbody2D body;
     [SerializeField] private Animator animator = null;
-
-    //Movement
     private bool isfacingRight = true;
     private float movementInput;
 
@@ -65,8 +60,6 @@ public class playerSpriteController : MonoBehaviour
         if ((movementInput < 0 && isfacingRight) || (movementInput > 0 && !isfacingRight))
         {
             faceRightFlip();
-
-            //Scale x to -1 (Face left)
             transform.localScale = new Vector3((-1 * transform.localScale.x), transform.localScale.y, transform.localScale.z);
         }
     }
