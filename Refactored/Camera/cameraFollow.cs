@@ -1,33 +1,44 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Runtime.CompilerServices;
 using UnityEngine;
 
-public class cameraFollow : MonoBehaviour
+public class CameraFollow : MonoBehaviour
 {
-    //Player
+    // Reference to the player (assign in Inspector)
     [SerializeField] private Transform player;
 
-    //Camera offset (difference between cam and player position)
+    // Time it takes for the camera to reach the target
+    [SerializeField] private float camMoveTime = 0.25f;
+
+    // Camera offset from the player
     private Vector3 camOffset;
 
-    //Camera velocity
+    // Internal velocity tracker for SmoothDamp
     private Vector3 velocity = Vector3.zero;
 
-    //Time to reach player
-    private float camMoveTime = 0.25f;
-
-    // Start is called before the first frame update
     void Start()
     {
+        if (player == null)
+        {
+            Debug.LogError("CameraFollow: Player Transform not assigned.");
+            enabled = false;
+            return;
+        }
+
         camOffset = transform.position - player.position;
     }
 
-    // Update is called once per frame
-    void Update()
+    void LateUpdate() // ✅ Use LateUpdate to follow after player movement
     {
-        Vector3 playerPosition = player.position + camOffset;
-        transform.position = Vector3.SmoothDamp(transform.position, playerPosition, ref velocity, camMoveTime);
+        Vector3 targetPosition = GetTargetCameraPosition();
+        transform.position = Vector3.SmoothDamp(transform.position, targetPosition, ref velocity, camMoveTime);
+    }
+
+    /// <summary>
+    /// Calculates the desired camera position based on player and offset.
+    /// </summary>
+    /// <returns>Target position for the camera.</returns>
+    private Vector3 GetTargetCameraPosition()
+    {
+        return player.position + camOffset;
     }
 }
+
