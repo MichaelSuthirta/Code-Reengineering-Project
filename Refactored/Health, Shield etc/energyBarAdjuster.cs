@@ -1,20 +1,40 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class energyBarAdjuster : MonoBehaviour
+public class EnergyBarAdjuster : MonoBehaviour
 {
-    public Slider energyBar;
-
-    public void setEnergy(float energy)
+    [SerializeField] private Slider energyBar;
+    
+    /// Sets the current energy value.
+    /// <param name="currentEnergy">The current energy value (0 to max).</param>
+    public void SetEnergy(EnergyValue currentEnergy)
     {
-        energyBar.value = energy;
+        if (energyBar != null)
+        {
+            energyBar.value = currentEnergy.Value;
+        }
     }
 
-    public void setMaxEnergy(float energy)
+    /// Sets the maximum energy and fills the bar.
+    /// <param name="maxEnergy">The maximum energy value.</param>
+    public void SetMaxEnergy(EnergyValue maxEnergy)
     {
-        energyBar.maxValue = energy;
-        energyBar.value = energy;
+        if (energyBar != null)
+        {
+            energyBar.maxValue = maxEnergy.Value;
+            energyBar.value = maxEnergy.Value;
+        }
+    }
+}
+
+
+/// Encapsulates a float energy value to reduce primitive obsession.
+public struct EnergyValue
+{
+    public float Value { get; }
+
+    public EnergyValue(float value)
+    {
+        Value = Mathf.Max(0f, value); // Ensures non-negative energy
     }
 }
