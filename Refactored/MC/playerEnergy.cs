@@ -4,12 +4,12 @@ using UnityEngine;
 
 public class playerEnergy : MonoBehaviour
 {
-    public float playerEnergy;
-    public float playerMaxEnergy;
-    public float playerEnergyRegen;
+    private float playerEnergy;
+    private float playerMaxEnergy;
+    private float playerEnergyRegen;
     private bool energyRegenerating = false;
 
-    public energyBarAdjuster energyBar;
+    private energyBarAdjuster energyBar;
 
     public void consumePlayerEnergy(float energy)
     {

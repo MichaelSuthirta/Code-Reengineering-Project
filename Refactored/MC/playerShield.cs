@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public playerShield : MonoBehaviour{
-    public int playerShield;
-    public int playerMaxShield;
-    public shieldBarAdjuster shieldBar;
+    private int playerShield;
+    private int playerMaxShield;
+    private shieldBarAdjuster shieldBar;
     
     public void takeDamageShield() {
         shieldDamage damageShield = new shieldDamage();

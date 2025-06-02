@@ -4,10 +4,10 @@ using UnityEngine;
 
 public class playerHealth : MonoBehaviour
 {
-    public float playerHP;
-    public float playerMaxHP;
-    public bool playerHealthNull;
-    public healthBarAdjuster healthBar;
+    private float playerHP;
+    private float playerMaxHP;
+    private bool playerHealthNull;
+    private healthBarAdjuster healthBar;
 
     void takeDamageHP(float damage)
     {
